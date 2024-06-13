@@ -1,35 +1,37 @@
 <template>
   <ul class="app-header-nav">
     <li class="home"><RouterLink to="/">首页</RouterLink></li>
-    <li>
-      <a href="#">美食</a>
+    <li v-for="item in categoryList" :key="item.id" @mouseenter="show(item.id)" @mouseleave="hide(item.id)">
+      <RouterLink :to="`/category/${item.id}`" @click="hide(item.id)">{{ item.name }}</RouterLink>
       <!-- hover 显示 start -->
-      <div class="layer">
+      <div class="layer" :class="{ 'layer-isshow': item.categoryshow }">
         <ul>
-          <li v-for="i in 10" :key="i">
-            <a href="#">
-              <img src="../assets/images/111.png" alt="" />
-              <p>果干</p>
-            </a>
+          <li v-for="sub in item.children" :key="sub.id">
+            <RouterLink :to="`/category/sub/${sub.id}`"  @click="hide(item.id)">
+              <img :src="sub.picture" alt="" />
+              <p>{{ sub.name }}</p>
+            </RouterLink>
           </li>
         </ul>
       </div>
       <!-- hover 显示 end -->
     </li>
-    <li><a href="#">餐厨</a></li>
-    <li><a href="#">艺术</a></li>
-    <li><a href="#">电器</a></li>
-    <li><a href="#">居家</a></li>
-    <li><a href="#">洗护</a></li>
-    <li><a href="#">孕婴</a></li>
-    <li><a href="#">服装</a></li>
-    <li><a href="#">杂货</a></li>
   </ul>
 </template>
 
 <script>
+import { computed } from 'vue'
+import { useStore } from 'vuex'
+
 export default {
-  name: 'AppHeaderNav'
+  name: 'AppHeaderNav',
+  setup () {
+    const store = useStore()
+    const categoryList = computed(() => store.state.category.list)
+    const show = (id) => store.commit('category/showCategory', id)
+    const hide = (id) => store.commit('category/hideCategory', id)
+    return { categoryList, show, hide }
+  }
 }
 </script>
 
@@ -56,14 +58,11 @@ export default {
         color: @xtxColor;
         border-bottom: 1px solid @xtxColor;
       }
-      .layer {
-        height: 120px;
-        opacity: 1;
-      }
     }
     // ++ end
   }
 }
+
 // ++ 初始样式 不显示
 .layer {
   width: 1240px;
@@ -99,5 +98,9 @@ export default {
       }
     }
   }
+}
+.layer-isshow {
+  height: 120px;
+  opacity: 1;
 }
 </style>
