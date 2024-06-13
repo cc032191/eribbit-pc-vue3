@@ -2,7 +2,7 @@
   <header class='app-header'>
     <div class="container">
       <h1 class="logo"><RouterLink to="/">小兔鲜</RouterLink></h1>
-      <Headernav />
+      <AppHeaderNav></AppHeaderNav>
       <div class="search">
         <i class="iconfont icon-search"></i>
         <input type="text" placeholder="搜一搜">
@@ -17,11 +17,11 @@
 </template>
 
 <script>
-import { Headernav } from '@/components/app-header-nav.vue'
+import AppHeaderNav from '@/components/app-header-nav.vue'
 export default {
   name: 'AppHeader',
   components: {
-    Headernav
+    AppHeaderNav
   }
 }
 </script>
