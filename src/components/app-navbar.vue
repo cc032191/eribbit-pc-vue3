@@ -21,11 +21,12 @@
 </template>
 <script>
 import { useStore } from 'vuex'
+import { computed } from 'vue'
 export default {
   name: 'AppTopnav',
   setup () {
     const store = useStore()
-    const { profile } = store.state.user
+    const profile = computed(() => store.state.user.profile)
     return { profile }
   }
 }
