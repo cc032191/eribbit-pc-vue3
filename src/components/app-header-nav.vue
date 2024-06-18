@@ -1,14 +1,38 @@
 <template>
   <ul class="app-header-nav">
-    <li class="home"><RouterLink to="/">首页</RouterLink></li>
-    <li v-for="item in categoryList" :key="item.id" @mouseenter="show(item.id)" @mouseleave="hide(item.id)">
-      <RouterLink :to="`/category/${item.id}`" @click="hide(item.id)">{{ item.name }}</RouterLink>
+    <li class="home">
+      <RouterLink to="/">首页</RouterLink>
+    </li>
+    <li
+      v-for="item in categoryList"
+      :key="item.id"
+      @mouseenter="show(item.id)"
+      @mouseleave="hide(item.id)"
+    >
+      <RouterLink
+        :to="`/category/${item.id}`"
+        @click="hide(item.id)"
+      >{{
+        item.name
+      }}</RouterLink>
       <!-- hover 显示 start -->
-      <div class="layer" :class="{ 'layer-isshow': item.categoryshow }">
+      <div
+        class="layer"
+        :class="{ 'layer-isshow': item.categoryshow }"
+      >
         <ul>
-          <li v-for="sub in item.children" :key="sub.id">
-            <RouterLink :to="`/category/sub/${sub.id}`"  @click="hide(item.id)">
-              <img :src="sub.picture" alt="" />
+          <li
+            v-for="sub in item.children"
+            :key="sub.id"
+          >
+            <RouterLink
+              :to="`/category/sub/${sub.id}`"
+              @click="hide(item.id)"
+            >
+              <img
+                :src="sub.picture"
+                alt=""
+              />
               <p>{{ sub.name }}</p>
             </RouterLink>
           </li>
