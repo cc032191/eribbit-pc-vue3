@@ -1,5 +1,8 @@
 <template>
-  <div class="home-category" @mouseleave="layershowId = null">
+  <div
+    class="home-category"
+    @mouseleave="layershowId = null"
+  >
     <ul class="menu">
       <!-- 一级 -->
       <li
@@ -26,7 +29,11 @@
             bg="rgba(255,255,255,0.2)"
             style="margin-right: 5px"
           />
-          <XtxSkeleton :width="50" :height="20" bg="rgba(255,255,255,0.2)" />
+          <XtxSkeleton
+            :width="50"
+            :height="20"
+            bg="rgba(255,255,255,0.2)"
+          />
         </template>
       </li>
     </ul>
@@ -38,9 +45,15 @@
       </h4>
       <!-- 商品 -->
       <ul v-if="layervalue && layervalue.goods">
-        <li v-for="layeritem in layervalue.goods" :key="layeritem.id">
+        <li
+          v-for="layeritem in layervalue.goods"
+          :key="layeritem.id"
+        >
           <RouterLink to="/">
-            <img :src="layeritem.picture" alt="" />
+            <img
+              :src="layeritem.picture"
+              alt=""
+            />
             <div class="info">
               <p class="name ellipsis-2">{{ layeritem.name }}</p>
               <p class="desc ellipsis">{{ layeritem.desc }}</p>
@@ -57,7 +70,10 @@
           :key="branditem.id"
         >
           <RouterLink to="/">
-            <img :src="branditem.picture" alt="" />
+            <img
+              :src="branditem.picture"
+              alt=""
+            />
             <div class="info">
               <p class="place">
                 <i class="iconfont icon-dingwei"></i>{{ branditem.place }}

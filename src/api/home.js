@@ -19,3 +19,21 @@ export function getBrand (limit = 6) {
 export function getBanner () {
   return request('/home/banner', 'get')
 }
+
+/**
+ * 获取新鲜好物
+ * @returns Promise
+ */
+
+export function getNewGoods () {
+  return request('/home/new', 'get')
+}
+
+/**
+ * 获取人气推荐
+ * @returns Promise
+ */
+
+export function getHot () {
+  return request('/home/hot', 'get')
+}

@@ -26,12 +26,14 @@
 // Vue3插件的写法:
 import XtxSkeleton from './xtx-skeleton.vue'
 import XtxCarousel from './xtx-carousel.vue'
+import XtxMore from './xtx-more.vue'
+
 export default {
   install (app) {
     // 注册全局组件
     app.component(XtxSkeleton.name, XtxSkeleton)
     app.component(XtxCarousel.name, XtxCarousel)
-
+    app.component(XtxMore.name, XtxMore)
     // 注册或扩展自定义指令
     app.directive('my-directive', {
       beforeMount (el, binding) {
