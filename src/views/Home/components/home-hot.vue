@@ -3,38 +3,48 @@
     title="人气推荐"
     subtitle="人气爆款 不容错过"
   >
-    <ul class="goods-list">
-      <li
-        v-for="item in homehot"
-        :key="item.id"
-      >
-        <RouterLink to="/">
-          <img
-            :src="item.picture"
-            alt=""
+    <div
+      style="position: relative;height: 426px;"
+      ref="target"
+    >
+      <Transition name="fade">
+        <ul
+          class="goods-list"
+          v-if="hotresult.length"
+        >
+          <li
+            v-for="item in hotresult"
+            :key="item.id"
           >
-          <p class="name">{{item.title}}</p>
-          <p class="desc">{{item.alt}}</p>
-        </RouterLink>
-      </li>
-    </ul>
+            <RouterLink to="/">
+              <img
+                :src="item.picture"
+                alt=""
+              >
+              <p class="name">{{item.title}}</p>
+              <p class="desc">{{item.alt}}</p>
+            </RouterLink>
+          </li>
+        </ul>
+        <HomeSkeleton v-else />
+      </Transition>
+    </div>
   </HomePanel>
 </template>
 
 <script>
+import { useLazyData } from '@/hooks/index'
 import HomePanel from './home-panel'
+import HomeSkeleton from './home-skeleton.vue'
 import { getHot } from '@/api/home'
-import { ref } from 'vue'
 export default {
   name: 'HomeHot',
-  components: { HomePanel },
+  components: { HomePanel, HomeSkeleton },
   setup () {
-    const homehot = ref([])
-    getHot().then(res => {
-      homehot.value = res.result
-    })
+    const { target, result } = useLazyData(getHot)
     return {
-      homehot
+      hotresult: result,
+      target
     }
   }
 }

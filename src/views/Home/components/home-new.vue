@@ -8,44 +8,50 @@
         <XtxMore path="/text"></XtxMore>
       </template>
       <!-- 面板内容 -->
-      <ul
-        ref="pannel"
-        class="goods-list"
-      >
-        <li
-          v-for="item in newgoods"
-          :key="item.id"
-        >
-          <RouterLink to="`/product/${item.id}`">
-            <img
-              :src="item.picture"
-              alt=""
-            />
-            <p class="name">{{ item.name }}</p>
-            <p class="price">&yen;{{ item.price }}</p>
-          </RouterLink>
-        </li>
-      </ul>
-
+      <div style="position: relative;height: 426px;" ref="target">
+        <Transition name="fade">
+          <ul
+            ref="pannel"
+            class="goods-list"
+            v-if="newresult.length"
+          >
+            <li
+              v-for="item in newresult"
+              :key="item.id"
+            >
+              <RouterLink to="`/product/${item.id}`">
+                <img
+                  :src="item.picture"
+                  alt=""
+                />
+                <p class="name">{{ item.name }}</p>
+                <p class="price">&yen;{{ item.price }}</p>
+              </RouterLink>
+            </li>
+          </ul>
+          <HomeSkeleton
+            bg="#f0f9f4"
+            v-else
+          />
+        </Transition>
+      </div>
     </HomePanel>
   </div>
 </template>
 <script>
 import HomePanel from './home-panel.vue'
-import { ref } from 'vue'
+import HomeSkeleton from './home-skeleton.vue'
 import { getNewGoods } from '@/api/home'
+import { useLazyData } from '@/hooks/index'
 export default {
   name: 'HomeNew',
   components: {
-    HomePanel
+    HomePanel,
+    HomeSkeleton
   },
-
   setup () {
-    const newgoods = ref([])
-    getNewGoods().then((data) => {
-      newgoods.value = data.result
-    })
-    return { newgoods }
+    const { target, result } = useLazyData(getNewGoods)
+    return { newresult: result, target }
   }
 }
 </script>
